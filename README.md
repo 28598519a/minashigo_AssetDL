@@ -5,6 +5,8 @@ Can download most of the files in ミナシゴノシゴトR, exclude files info 
 
 ## decrypt resource.json and calc assets url
 You can just use the final json file I provide in release.
+
+Note: Use Google Chrome - F12 - Console to execute it.
 ```
 function loadJs(jsUrl){
     let scriptTag = document.createElement('script');
