@@ -30,9 +30,6 @@ str = "text in resource.json"
 // [Step2] Now, copy the out and paste it back
 out = decrypt(str)
 
-// [Step3] Because CryptoJS problem, search file name contains "%" and modify it, https://onlineutf8tools.com/convert-hexadecimal-to-utf8
-out = "text in resource.json (edited)"
-
 d = function(t) {
 return [ t.substring(0, 2), t.substring(4, 6) ];
 }, h = function(t) {
@@ -82,7 +79,7 @@ for(path in resource.assets){
 }
 all += "}}"
 
-// [Step4] copy the result of all
+// [Step3] copy the result of all
 ```
 
 ## decrypt mnsg data
