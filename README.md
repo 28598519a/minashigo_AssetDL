@@ -79,7 +79,7 @@ for(path in resource.assets){
 }
 all += "}}"
 
-// [Step3] copy the result of all
+// [Step3] copy the result of all (Save as resource.json)
 ```
 
 ## decrypt mnsg data
