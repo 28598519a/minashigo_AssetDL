@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -22,6 +23,40 @@ namespace Minashigo
         /// 同時下載的線程池上限
         /// </summary>
         int pool = 50;
+
+        private async void btn_reslist_Click(object sender, RoutedEventArgs e)
+        {
+            btn_reslist.IsEnabled = false;
+
+            using (WebClient wc = new WebClient())
+            {
+                try
+                {
+                    JObject html = JObject.Parse(Encoding.UTF8.GetString(wc.DownloadData(App.VersionUrl)));
+                    App.version = html["version"]["resourceVersion"].ToString();
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.MessageBox.Show(ex.ToString());
+                    return;
+                }
+            }
+            
+            List<Task> tasks = new List<Task>
+            {
+                DownLoadFile($"{App.ServerURL}{App.version}/resource.json" , Path.Combine(App.Root, "resource_enc.json"), true)
+            };
+            await Task.WhenAll(tasks);
+            tasks.Clear();
+
+            if (App.glocount > 0)
+                System.Windows.MessageBox.Show($"Download resource.json finish", "Finish");
+            else
+                System.Windows.MessageBox.Show($"Download resource.json fail", "Fail");
+            
+            App.glocount = 0;
+            btn_reslist.IsEnabled = true;
+        }
 
         private async void btn_download_Click(object sender, RoutedEventArgs e)
         {
